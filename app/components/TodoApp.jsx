@@ -3,6 +3,7 @@ var TodoList = require('TodoList');
 var AddTodo = require('AddTodo');
 var TodoSearch = require('TodoSearch');
 var uuid = require('node-uuid');
+var TodoApi = require('TodoApi');
 
 var TodoApp = React.createClass({
   getInitialState:function(){
@@ -11,40 +12,47 @@ var TodoApp = React.createClass({
       searchText: '',
       //opens up as not checked
       showCompleted: false,
-      //create array of items for list
-      todos: [
-        {
-          id: uuid(),
-          text: 'Walk the dog'
-        },
-        {
-          id: uuid(),
-          text: 'Clean the yard'
-        },
-        {
-          id: uuid(),
-          text: 'Go To Work'
-        },
-        {
-          id: uuid(),
-          text: 'Buy Food'
-        }
-      ]
+      //return api
+      todos: TodoApi.getTodos()
     };
+  },
+  componentDidUpdate: function(){
+    //take api
+    TodoApi.setTodos(this.state.todos);
+  },
+  //it will take the id it wants to switch
+  handleToggle: function(id){
+    var updatedTodos = this.state.todos.map(function (todo) {
+      //check if the id of the todo is the same as the one we passed in
+      if(todo.id === id) {
+        //change the completed to the opposite of what it was
+        todo.completed = !todo.completed;
+      }
+      //if id not match then it should return the oroper todo
+      return todo;
+    });
+    //update state
+    this.setState({
+      //update the todos with the updatedTodos
+      todos: updatedTodos
+    });
   },
   handleAddTodo: function(text){
     this.setState({
+      //new todos arrary to equal the old todos array
       todos: [
         //collect the todos
         ...this.state.todos,
         {
           //uuid generates unique ids
           id: uuid(),
-          text: text
+          text: text,
+          //checkbox to show whether the task is completed or false
+          //new todos should always be set to false as they are not completed
+          completed: false
         }
       ]
-    })
-
+    });
   },
     //set the state
     handleSearch:function(showCompleted, searchText){
@@ -59,10 +67,11 @@ var TodoApp = React.createClass({
   render: function(){
     var {todos} = this.state;
 //AddTodo contains props, gets the value and sends to the handle function
+//pass handleToggle to todolist.
     return(
       <div>
         <TodoSearch onSearch={this.handleSearch}/>
-        <TodoList todos={todos}/>
+        <TodoList todos={todos} onToggle={this.handleToggle}/>
         <AddTodo onAddTodo={this.handleAddTodo}/>
       </div>
     )
