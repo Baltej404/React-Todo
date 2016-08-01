@@ -16,8 +16,10 @@ var TodoApp = React.createClass({
       todos: TodoApi.getTodos()
     };
   },
+  //function called just after component updates
   componentDidUpdate: function(){
     //take api
+    //just afte componenet update run function setTodos
     TodoApi.setTodos(this.state.todos);
   },
   //it will take the id it wants to switch
@@ -47,7 +49,7 @@ var TodoApp = React.createClass({
           //uuid generates unique ids
           id: uuid(),
           text: text,
-          //checkbox to show whether the task is completed or false
+          //boolean to show whether the task is completed or false
           //new todos should always be set to false as they are not completed
           completed: false
         }
@@ -65,13 +67,14 @@ var TodoApp = React.createClass({
 
     },
   render: function(){
-    var {todos} = this.state;
+    var {todos, showCompleted, searchText} = this.state;
+    var filteredTodos = TodoApi.filterTodos(todos, showCompleted, searchText);
 //AddTodo contains props, gets the value and sends to the handle function
 //pass handleToggle to todolist.
     return(
       <div>
         <TodoSearch onSearch={this.handleSearch}/>
-        <TodoList todos={todos} onToggle={this.handleToggle}/>
+        <TodoList todos={filteredTodos} onToggle={this.handleToggle}/>
         <AddTodo onAddTodo={this.handleAddTodo}/>
       </div>
     )

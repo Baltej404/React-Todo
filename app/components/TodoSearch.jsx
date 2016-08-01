@@ -1,11 +1,11 @@
 var React = require('react');
 
 var TodoSearch = React.createClass({
-  handleSearch: function(){
+  handleSearch: function () {
     //collect the values
     var searchText = this.refs.searchText.value;
 //collect the value of checkbox
-    var showCompleted = this.ref.showCompleted.checked;
+    var showCompleted = this.refs.showCompleted.checked;
 //carry the values onto the props onSearch
 //this will be passed onto the TodoApp
     this.props.onSearch(showCompleted, searchText);

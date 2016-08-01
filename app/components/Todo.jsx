@@ -1,5 +1,5 @@
 var React = require('react');
-var TodoApp= require('TodoApp');
+
 var Todo = React.createClass({
   render: function () {
     //grab the props

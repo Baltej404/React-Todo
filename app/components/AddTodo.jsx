@@ -1,17 +1,16 @@
 var React = require('react');
-var ReactDOM =require('react-dom');
 
 var AddTodo = React.createClass({
-  onFormSubmit: function(e){
+  onFormSubmit: function (e) {
     e.preventDefault();
     //get the value of the input
-    var todotext = this.refs.todotext.value;
+    var todoText = this.refs.todoText.value;
     //validation if data is entered
-    if (todotext.length > 0) {
+    if (todoText.length > 0) {
       //clear the value
-      this.refs.todotext.value = '';
+      this.refs.todoText.value = '';
       //send value to onaddtodo function
-      this.props.onAddTodo(todotext);
+      this.props.onAddTodo(todoText);
     } else {
       //move the cursor to input onClick
       this.refs.todotext.focus();
@@ -21,7 +20,7 @@ var AddTodo = React.createClass({
     return(
       <div>
         <form onSubmit={this.onFormSubmit}>
-          <input type="text" ref="todotext" placeholder="Add To Do"/>
+          <input type="text" ref="todoText" placeholder="Add To Do"/>
           <button className="button expanded">Add Todo</button>
         </form>
       </div>
