@@ -46,12 +46,13 @@ module.exports = {
     });
     //filter by searchText
     filteredTodos = filteredTodos.filter((todo)=> {
+
       var text = todo.text.toLowerCase();
+      //if searchText is empty return everything as nothing is being searched
+      //if text contains the searchText then show items
       return searchText.length === 0 || text.indexOf(searchText)> -1;
 
     });
-
-
     //sort todos with non-completed first
     //sort takes in a function
     //function takes two arguments

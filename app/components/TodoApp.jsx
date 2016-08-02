@@ -3,6 +3,7 @@ var TodoList = require('TodoList');
 var AddTodo = require('AddTodo');
 var TodoSearch = require('TodoSearch');
 var uuid = require('node-uuid');
+var moment = require('moment');
 var TodoApi = require('TodoApi');
 
 var TodoApp = React.createClass({
@@ -29,6 +30,8 @@ var TodoApp = React.createClass({
       if(todo.id === id) {
         //change the completed to the opposite of what it was
         todo.completed = !todo.completed;
+        //if it is true then return moment.unix or if false then return undefined so it will show createdAt date
+        todo.completedAt = todo.completed ? moment().unix() : undefined;
       }
       //if id not match then it should return the oroper todo
       return todo;
@@ -51,7 +54,11 @@ var TodoApp = React.createClass({
           text: text,
           //boolean to show whether the task is completed or false
           //new todos should always be set to false as they are not completed
-          completed: false
+          completed: false,
+          //created at property, show when item was created
+          createdAt: moment().unix(),
+          //completedAt placed within the arrays
+          completedAt: undefined
         }
       ]
     });
