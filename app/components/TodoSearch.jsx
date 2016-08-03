@@ -13,7 +13,7 @@ var TodoSearch = React.createClass({
   //onchange method checks for changes everytime, if something changed then this method runs
   render: function(){
     return (
-      <div>
+      <div className="container__header">
         <div>
           <input type="search" ref="searchText" placeholder="Seach To do" onChange={this.handleSearch}></input>
         </div>
@@ -21,7 +21,6 @@ var TodoSearch = React.createClass({
           <input type="checkbox" ref="showCompleted" onChange={this.handleSearch}></input>
           Show completed
         </label>
-      <div></div>
       </div>
     )
   }

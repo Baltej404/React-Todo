@@ -31,6 +31,7 @@ var TodoApp = React.createClass({
         //change the completed to the opposite of what it was
         todo.completed = !todo.completed;
         //if it is true then return moment.unix or if false then return undefined so it will show createdAt date
+        //stores timestamp
         todo.completedAt = todo.completed ? moment().unix() : undefined;
       }
       //if id not match then it should return the oroper todo
@@ -56,6 +57,7 @@ var TodoApp = React.createClass({
           //new todos should always be set to false as they are not completed
           completed: false,
           //created at property, show when item was created
+          //created a moment timestamp
           createdAt: moment().unix(),
           //completedAt placed within the arrays
           completedAt: undefined
@@ -80,9 +82,17 @@ var TodoApp = React.createClass({
 //pass handleToggle to todolist.
     return(
       <div>
-        <TodoSearch onSearch={this.handleSearch}/>
-        <TodoList todos={filteredTodos} onToggle={this.handleToggle}/>
-        <AddTodo onAddTodo={this.handleAddTodo}/>
+        <h1 className="page-title">TODO APP</h1>
+        <div className="row">
+          <div className="column small-centered small-11 medium-6 large-5">
+            <div className="container">
+              <TodoSearch onSearch={this.handleSearch}/>
+              <TodoList todos={filteredTodos} onToggle={this.handleToggle}/>
+              <AddTodo onAddTodo={this.handleAddTodo}/>
+            </div>
+          </div>
+
+        </div>
       </div>
     )
   },

@@ -5,9 +5,11 @@ var Todo = React.createClass({
   render: function () {
     //grab the props
     var {id, text, completed, createdAt, completedAt} = this.props;
-
+    //if completed then show class todo completed if not true then keep the todo class
+    var todoClassName = completed ? 'todo todo-completed': 'todo';
     var renderDate = ()=>{
       var message = 'Created: ';
+      // if item is not completed then timestamp is createdAt
       var timestamp = createdAt;
 
       if(completed){
@@ -23,13 +25,18 @@ var Todo = React.createClass({
     //collect the completed property
     //completed prop checks whether the checkbox should be true or false
     //function to carry the id onto parent, id to toggle
+    //todoClassName checks if completed or not and shows differents classes
     return (
-      <div onClick={()=>{
+      <div className={todoClassName} onClick={()=>{
           this.props.onToggle(id);
         }}>
-        <input type="checkbox" checked={completed}/>
-        <p>{text}</p>
-        <p>{renderDate()}</p>
+        <div>
+          <input type="checkbox" checked={completed}/>
+        </div>
+        <div>
+          <p>{text}</p>
+          <p className="todo__subtext">{renderDate()}</p>
+        </div>
       </div>
     );
   }
